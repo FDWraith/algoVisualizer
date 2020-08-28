@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import ReactGrid from './components/Grid';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ReactGrid width={100} height={100}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
