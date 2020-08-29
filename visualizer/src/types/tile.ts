@@ -1,4 +1,5 @@
 import { Color } from "./color";
+import { Coord } from "./coord";
 
 enum TileType { 
     SOURCE = Color.BLUE,
@@ -7,11 +8,11 @@ enum TileType {
     EDGE = Color.RED,
     PATH = Color.YELLOW,
     WALL = Color.GRAY,
+    EMPTY = Color.WHITE,
 }
 
 interface TileInfo {
-    x: number,
-    y: number,
+    coord: Coord,
     type: TileType,
 }
 

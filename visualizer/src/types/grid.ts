@@ -1,4 +1,5 @@
 import { Color } from './color';
+import { Coord } from './coord'
 
 export interface Grid {
 
@@ -13,7 +14,7 @@ export interface Grid {
     decreaseSize(): void;
 
     // color the square at the given tile (if it can be shown, on the grid.)
-    colorSquareAt(x: number, y: number, c: Color): void;
+    colorSquareAt(loc: Coord, c: Color): void;
 
     render(): any;
 }
