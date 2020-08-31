@@ -74,6 +74,17 @@ export default class AlgorithmBase implements Algorithm {
         throw new Error("Not implemented, please implement by extending this class")
     }
 
+    // "visits" the given tile, and then adds new edges if necessary
+    protected visit(c: Coord) {
+        this.availableTiles.delete(c);
+        this.visited.add(c);
+
+        if (_.isEqual(c, this.destination)) {
+            this.finished = true;
+            this.generatePath();
+        }
+    }
+
     protected generatePath() {
         this.path = null;
         console.log("Should be overridden in children methods");
@@ -87,6 +98,13 @@ export default class AlgorithmBase implements Algorithm {
         return true;
     }
 
+    start(): void {
+        if (!this.source || !this.destination) {
+            throw new Error("Cannot run without source or destination tile");
+        }
+        return;
+    }
+
     step(): void {
         if (!this.source || !this.destination) {
             throw new Error("Cannot run without source or destination tile");
@@ -97,13 +115,7 @@ export default class AlgorithmBase implements Algorithm {
         }
 
         const next: Coord = this.getNext();
-        this.availableTiles.delete(next);
-        this.visited.add(next);
-
-        if (_.isEqual(next, this.destination)) {
-            this.finished = true;
-            this.generatePath();
-        }
+        this.visit(next);
     }
 
     private clearSourceOrDestinationIfNeeded(c: Coord) {
@@ -119,16 +131,19 @@ export default class AlgorithmBase implements Algorithm {
     setSource(c: Coord): void {
         this.clearSourceOrDestinationIfNeeded(c);
         this.source = c;
+        this.availableTiles.delete(c);
     }
 
     setDestination(c: Coord): void {
         this.clearSourceOrDestinationIfNeeded(c);
         this.destination = c;
+        this.availableTiles.delete(c);
     }
 
     addWall(c: Coord): void {
         this.clearSourceOrDestinationIfNeeded(c);
         this.walls.add(c);
+        this.availableTiles.delete(c);
     }
 
     removeTile(c: Coord): void {

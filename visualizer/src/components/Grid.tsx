@@ -4,6 +4,7 @@ import { Color } from '../types/color';
 import Square from "./Square";
 
 import _ from "lodash";
+import { Coord } from '../types/coord';
 
 interface IProps {
     width: number,
@@ -50,7 +51,9 @@ class ReactGrid extends React.Component<IProps, IState> implements Grid {
         })
     }
 
-    colorSquareAt(x: number, y: number, c: Color): void {
+    colorSquareAt(loc: Coord, c: Color): void {
+        const x: number = loc.x;
+        const y: number = loc.y;
         const newGrid = _.clone(this.state.grid);
         if (!newGrid[x]) {
             newGrid[x] = {};
